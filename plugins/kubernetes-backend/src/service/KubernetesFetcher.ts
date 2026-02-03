@@ -29,7 +29,6 @@ import {
   KubernetesFetchError,
   PodStatusFetchResponse,
 } from '@backstage/plugin-kubernetes-common';
-import fetch, { RequestInit, Response } from 'node-fetch';
 import * as https from 'node:https';
 import fs from 'fs-extra';
 import { JsonObject } from '@backstage/types';
@@ -253,7 +252,7 @@ export class KubernetesClientBasedFetcher implements KubernetesFetcher {
   private async fetchArgs(
     clusterDetails: ClusterDetails,
     credential: KubernetesCredential,
-  ): Promise<[URL, fetch.RequestInit]> {
+  ): Promise<[URL, RequestInit]> {
     const { bufferFromFileOrString } = await import('@kubernetes/client-node');
 
     const requestInit: RequestInit = {
@@ -287,7 +286,7 @@ export class KubernetesClientBasedFetcher implements KubernetesFetcher {
 
   private async fetchArgsInCluster(
     credential: KubernetesCredential,
-  ): Promise<[URL, fetch.RequestInit]> {
+  ): Promise<[URL, RequestInit]> {
     const { KubeConfig } = await import('@kubernetes/client-node');
 
     const requestInit: RequestInit = {

@@ -2,7 +2,6 @@ ConfluenceCollator.ts reference
 
 ```ts
 import { DocumentCollator } from '@backstage/plugin-search-common';
-import fetch from 'cross-fetch';
 
 export class ConfluenceCollator implements DocumentCollator {
   public readonly type: string = 'confluence';

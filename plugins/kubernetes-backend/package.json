@@ -68,8 +68,7 @@
     "fs-extra": "^11.2.0",
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
-    "luxon": "^3.0.0",
-    "node-fetch": "^2.7.0"
+    "luxon": "^3.0.0"
   },
   "devDependencies": {
     "@backstage/backend-defaults": "workspace:^",

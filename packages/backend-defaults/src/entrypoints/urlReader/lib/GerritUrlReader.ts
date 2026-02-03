@@ -24,7 +24,6 @@ import {
   UrlReaderServiceSearchResponse,
 } from '@backstage/backend-plugin-api';
 import { Base64Decode } from 'base64-stream';
-import fetch, { Response } from 'node-fetch';
 import { Readable } from 'node:stream';
 import {
   GerritIntegration,
@@ -110,13 +109,7 @@ export class GerritUrlReader implements UrlReaderService {
       response = await fetch(apiUrl, {
         method: 'GET',
         ...getGerritRequestOptions(this.integration.config),
-        // TODO(freben): The signal cast is there because pre-3.x versions of
-        // node-fetch have a very slightly deviating AbortSignal type signature.
-        // The difference does not affect us in practice however. The cast can
-        // be removed after we support ESM for CLI dependencies and migrate to
-        // version 3 of node-fetch.
-        // https://github.com/backstage/backstage/issues/8242
-        signal: options?.signal as any,
+        signal: options?.signal,
       });
     } catch (e) {
       throw new Error(`Unable to read gerrit file ${url}, ${e}`);
@@ -209,13 +202,7 @@ export class GerritUrlReader implements UrlReaderService {
     );
     const archiveResponse = await fetch(archiveUrl, {
       ...getGerritRequestOptions(this.integration.config),
-      // TODO(freben): The signal cast is there because pre-3.x versions of
-      // node-fetch have a very slightly deviating AbortSignal type signature.
-      // The difference does not affect us in practice however. The cast can
-      // be removed after we support ESM for CLI dependencies and migrate to
-      // version 3 of node-fetch.
-      // https://github.com/backstage/backstage/issues/8242
-      signal: options?.signal as any,
+      signal: options?.signal,
     });
 
     if (archiveResponse.status === 404) {
@@ -286,13 +273,7 @@ export class GerritUrlReader implements UrlReaderService {
 
     const treeResponse = await fetch(treeUrl, {
       ...getGerritRequestOptions(this.integration.config),
-      // TODO(freben): The signal cast is there because pre-3.x versions of
-      // node-fetch have a very slightly deviating AbortSignal type signature.
-      // The difference does not affect us in practice however. The cast can
-      // be removed after we support ESM for CLI dependencies and migrate to
-      // version 3 of node-fetch.
-      // https://github.com/backstage/backstage/issues/8242
-      signal: options?.signal as any,
+      signal: options?.signal,
     });
     if (!treeResponse.ok) {
       throw await ResponseError.fromResponse(treeResponse);
@@ -319,13 +300,7 @@ export class GerritUrlReader implements UrlReaderService {
         const response = await fetch(apiUrl, {
           method: 'GET',
           ...getGerritRequestOptions(this.integration.config),
-          // TODO(freben): The signal cast is there because pre-3.x versions of
-          // node-fetch have a very slightly deviating AbortSignal type signature.
-          // The difference does not affect us in practice however. The cast can
-          // be removed after we support ESM for CLI dependencies and migrate to
-          // version 3 of node-fetch.
-          // https://github.com/backstage/backstage/issues/8242
-          signal: options?.signal as any,
+          signal: options?.signal,
         });
 
         const responseBody = await response.text();

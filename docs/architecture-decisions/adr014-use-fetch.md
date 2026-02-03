@@ -4,6 +4,8 @@ title: 'ADR014: Proper use of HTTP fetching libraries'
 description: Architecture Decision Record (ADR) for the proper use of fetchApiRef, native fetch, and cross-fetch for data fetching.
 ---
 
+// TODO: Bring up a new ADR for removing cross-fetch
+
 ## Context
 
 Until now we have been recommending the use of `node-fetch` in Node.js contexts

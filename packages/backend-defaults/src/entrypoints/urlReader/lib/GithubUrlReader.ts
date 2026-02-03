@@ -33,7 +33,6 @@ import {
   GithubCredentials,
 } from '@backstage/integration';
 import { RestEndpointMethodTypes } from '@octokit/rest';
-import fetch, { RequestInit, Response } from 'node-fetch';
 import parseGitUrl from 'git-url-parse';
 import { Minimatch } from 'minimatch';
 import { Readable } from 'node:stream';
@@ -144,13 +143,7 @@ export class GithubUrlReader implements UrlReaderService {
         }),
         Accept: 'application/vnd.github.v3.raw',
       },
-      // TODO(freben): The signal cast is there because pre-3.x versions of
-      // node-fetch have a very slightly deviating AbortSignal type signature.
-      // The difference does not affect us in practice however. The cast can
-      // be removed after we support ESM for CLI dependencies and migrate to
-      // version 3 of node-fetch.
-      // https://github.com/backstage/backstage/issues/8242
-      signal: options?.signal as any,
+      signal: options?.signal,
     });
 
     return ReadUrlResponseFactory.fromNodeJSReadable(response.body, {
@@ -177,13 +170,7 @@ export class GithubUrlReader implements UrlReaderService {
       repoDetails.repo.archive_url,
       commitSha,
       filepath,
-      // TODO(freben): The signal cast is there because pre-3.x versions of
-      // node-fetch have a very slightly deviating AbortSignal type signature.
-      // The difference does not affect us in practice however. The cast can be
-      // removed after we support ESM for CLI dependencies and migrate to
-      // version 3 of node-fetch.
-      // https://github.com/backstage/backstage/issues/8242
-      { headers, signal: options?.signal as any },
+      { headers, signal: options?.signal },
       options,
     );
   }
@@ -263,8 +250,6 @@ export class GithubUrlReader implements UrlReaderService {
     );
 
     return await this.deps.treeResponseFactory.fromTarArchive({
-      // TODO(Rugvip): Underlying implementation of fetch will be node-fetch, we probably want
-      //               to stick to using that in exclusively backend code.
       stream: Readable.from(archive.body),
       subpath,
       etag: sha,

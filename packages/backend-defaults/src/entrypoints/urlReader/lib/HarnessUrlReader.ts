@@ -33,7 +33,6 @@ import {
   parseHarnessUrl,
 } from '@backstage/integration';
 import { ReadTreeResponseFactory, ReaderFactory } from './types';
-import fetch, { Response } from 'node-fetch';
 import { ReadUrlResponseFactory } from './ReadUrlResponseFactory';
 import {
   assertError,

@@ -45,11 +45,6 @@
       matchPackageNames: ['browser-actions/setup-chrome'],
       enabled: false,
     },
-    // ESM only majors, that we're not ready for yet
-    {
-      matchPackageNames: ['node-fetch'],
-      allowedVersions: '<3.0.0',
-    },
     {
       matchPackageNames: ['inquirer', '@types/inquirer'],
       allowedVersions: '<9.0.0',
