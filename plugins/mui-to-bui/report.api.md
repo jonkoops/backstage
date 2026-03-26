@@ -11,6 +11,7 @@ import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
 import { JSX as JSX_3 } from 'react/jsx-runtime';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/core-plugin-api';
@@ -33,8 +34,8 @@ const _default: OverridableFrontendPlugin<
     root: RouteRef<undefined>;
   },
   {},
-  {
-    'page:mui-to-bui': OverridableExtensionDefinition<{
+  MakeSortedExtensionsMap<
+    OverridableExtensionDefinition<{
       kind: 'page';
       name: undefined;
       config: {
@@ -42,8 +43,8 @@ const _default: OverridableFrontendPlugin<
         title: string | undefined;
       };
       configInput: {
-        title?: string | undefined;
         path?: string | undefined;
+        title?: string | undefined;
       };
       output:
         | ExtensionDataRef<string, 'core.routing.path', {}>
@@ -109,8 +110,9 @@ const _default: OverridableFrontendPlugin<
         routeRef?: RouteRef_2;
         noHeader?: boolean;
       };
-    }>;
-  }
+    }>,
+    'mui-to-bui'
+  >
 >;
 export default _default;
 

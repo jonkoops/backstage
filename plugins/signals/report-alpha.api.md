@@ -7,6 +7,7 @@ import { AnyApiFactory } from '@backstage/frontend-plugin-api';
 import { ApiFactory } from '@backstage/frontend-plugin-api';
 import { ExtensionBlueprintParams } from '@backstage/frontend-plugin-api';
 import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 
@@ -14,8 +15,8 @@ import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 const _default: OverridableFrontendPlugin<
   {},
   {},
-  {
-    'api:signals': OverridableExtensionDefinition<{
+  MakeSortedExtensionsMap<
+    OverridableExtensionDefinition<{
       kind: 'api';
       name: undefined;
       config: {};
@@ -29,8 +30,9 @@ const _default: OverridableFrontendPlugin<
       >(
         params: ApiFactory<TApi, TImpl, TDeps>,
       ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-  }
+    }>,
+    'signals'
+  >
 >;
 export default _default;
 

@@ -16,6 +16,7 @@ import { ExternalRouteRef } from '@backstage/core-plugin-api';
 import { FilterPredicate } from '@backstage/filter-predicates';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/core-plugin-api';
@@ -65,188 +66,193 @@ const _default: OverridableFrontendPlugin<
       true
     >;
   },
-  {
-    'api:catalog-graph': OverridableExtensionDefinition<{
-      kind: 'api';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {};
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'entity-card:catalog-graph/relations': OverridableExtensionDefinition<{
-      config: {
-        kinds: string[] | undefined;
-        relations: string[] | undefined;
-        maxDepth: number | undefined;
-        unidirectional: boolean | undefined;
-        mergeRelations: boolean | undefined;
-        direction: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
-        relationPairs: [string, string][] | undefined;
-        zoom: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
-        curve: 'curveStepBefore' | 'curveMonotoneX' | undefined;
-        title: string | undefined;
-        height: number | undefined;
-        filter: FilterPredicate | undefined;
-        type: 'content' | 'info' | undefined;
-      };
-      configInput: {
-        height?: number | undefined;
-        curve?: 'curveStepBefore' | 'curveMonotoneX' | undefined;
-        direction?: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
-        zoom?: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
-        title?: string | undefined;
-        relations?: string[] | undefined;
-        maxDepth?: number | undefined;
-        kinds?: string[] | undefined;
-        mergeRelations?: boolean | undefined;
-        relationPairs?: [string, string][] | undefined;
-        unidirectional?: boolean | undefined;
-        filter?: FilterPredicate | undefined;
-        type?: 'content' | 'info' | undefined;
-      };
-      output:
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            (entity: Entity) => boolean,
-            'catalog.entity-filter-function',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            string,
-            'catalog.entity-filter-expression',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            EntityCardType,
-            'catalog.entity-card-type',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      kind: 'entity-card';
-      name: 'relations';
-      params: {
-        loader: () => Promise<JSX.Element>;
-        filter?: string | FilterPredicate | ((entity: Entity) => boolean);
-        type?: EntityCardType;
-      };
-    }>;
-    'page:catalog-graph': OverridableExtensionDefinition<{
-      config: {
-        selectedKinds: string[] | undefined;
-        selectedRelations: string[] | undefined;
-        rootEntityRefs: string[] | undefined;
-        maxDepth: number | undefined;
-        unidirectional: boolean | undefined;
-        mergeRelations: boolean | undefined;
-        direction: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
-        showFilters: boolean | undefined;
-        curve: 'curveStepBefore' | 'curveMonotoneX' | undefined;
-        kinds: string[] | undefined;
-        relations: string[] | undefined;
-        relationPairs: [string, string][] | undefined;
-        zoom: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        curve?: 'curveStepBefore' | 'curveMonotoneX' | undefined;
-        direction?: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
-        zoom?: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
-        relations?: string[] | undefined;
-        maxDepth?: number | undefined;
-        rootEntityRefs?: string[] | undefined;
-        kinds?: string[] | undefined;
-        mergeRelations?: boolean | undefined;
-        relationPairs?: [string, string][] | undefined;
-        unidirectional?: boolean | undefined;
-        selectedRelations?: string[] | undefined;
-        selectedKinds?: string[] | undefined;
-        showFilters?: boolean | undefined;
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            string,
-            'core.title',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {
-        pages: ExtensionInput<
-          | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-          | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-          | ConfigurableExtensionDataRef<
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'api';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {};
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          kinds: string[] | undefined;
+          relations: string[] | undefined;
+          maxDepth: number | undefined;
+          unidirectional: boolean | undefined;
+          mergeRelations: boolean | undefined;
+          direction: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
+          relationPairs: [string, string][] | undefined;
+          zoom: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
+          curve: 'curveStepBefore' | 'curveMonotoneX' | undefined;
+          title: string | undefined;
+          height: number | undefined;
+          filter: FilterPredicate | undefined;
+          type: 'info' | 'content' | undefined;
+        };
+        configInput: {
+          title?: string | undefined;
+          height?: number | undefined;
+          direction?: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
+          zoom?: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
+          curve?: 'curveStepBefore' | 'curveMonotoneX' | undefined;
+          relations?: string[] | undefined;
+          maxDepth?: number | undefined;
+          kinds?: string[] | undefined;
+          mergeRelations?: boolean | undefined;
+          relationPairs?: [string, string][] | undefined;
+          unidirectional?: boolean | undefined;
+          filter?: FilterPredicate | undefined;
+          type?: 'info' | 'content' | undefined;
+        };
+        output:
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
+              (entity: Entity) => boolean,
+              'catalog.entity-filter-function',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              string,
+              'catalog.entity-filter-expression',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              EntityCardType,
+              'catalog.entity-card-type',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        kind: 'entity-card';
+        name: 'relations';
+        params: {
+          loader: () => Promise<JSX.Element>;
+          filter?: string | FilterPredicate | ((entity: Entity) => boolean);
+          type?: EntityCardType;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          selectedKinds: string[] | undefined;
+          selectedRelations: string[] | undefined;
+          rootEntityRefs: string[] | undefined;
+          maxDepth: number | undefined;
+          unidirectional: boolean | undefined;
+          mergeRelations: boolean | undefined;
+          direction: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
+          showFilters: boolean | undefined;
+          curve: 'curveStepBefore' | 'curveMonotoneX' | undefined;
+          kinds: string[] | undefined;
+          relations: string[] | undefined;
+          relationPairs: [string, string][] | undefined;
+          zoom: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          direction?: 'TB' | 'BT' | 'LR' | 'RL' | undefined;
+          zoom?: 'disabled' | 'enabled' | 'enable-on-click' | undefined;
+          curve?: 'curveStepBefore' | 'curveMonotoneX' | undefined;
+          relations?: string[] | undefined;
+          rootEntityRefs?: string[] | undefined;
+          maxDepth?: number | undefined;
+          kinds?: string[] | undefined;
+          mergeRelations?: boolean | undefined;
+          relationPairs?: [string, string][] | undefined;
+          unidirectional?: boolean | undefined;
+          selectedRelations?: string[] | undefined;
+          selectedKinds?: string[] | undefined;
+          showFilters?: boolean | undefined;
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
               RouteRef_2<AnyRouteRefParams>,
               'core.routing.ref',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
               string,
               'core.title',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<
               IconElement,
               'core.icon',
               {
                 optional: true;
               }
-            >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-      };
-      kind: 'page';
-      name: undefined;
-      params: {
-        path: string;
-        title?: string;
-        icon?: IconElement;
-        loader?: () => Promise<JSX_2.Element>;
-        routeRef?: RouteRef_2;
-        noHeader?: boolean;
-      };
-    }>;
-  }
+            >;
+        inputs: {
+          pages: ExtensionInput<
+            | ConfigurableExtensionDataRef<
+                JSX_2.Element,
+                'core.reactElement',
+                {}
+              >
+            | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
+            | ConfigurableExtensionDataRef<
+                RouteRef_2<AnyRouteRefParams>,
+                'core.routing.ref',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                string,
+                'core.title',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                IconElement,
+                'core.icon',
+                {
+                  optional: true;
+                }
+              >,
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+        };
+        kind: 'page';
+        name: undefined;
+        params: {
+          path: string;
+          title?: string;
+          icon?: IconElement;
+          loader?: () => Promise<JSX_2.Element>;
+          routeRef?: RouteRef_2;
+          noHeader?: boolean;
+        };
+      }>,
+    'catalog-graph'
+  >
 >;
 export default _default;
 

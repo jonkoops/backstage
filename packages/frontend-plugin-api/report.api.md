@@ -1550,6 +1550,14 @@ export const identityApiRef: ApiRef_2<IdentityApi, 'core.identity'> & {
   readonly $$type: '@backstage/ApiRef';
 };
 
+// @public (undocumented)
+export type MakeSortedExtensionsMap<
+  UExtensions extends ExtensionDefinition,
+  TId extends string,
+> = {
+  [E in UExtensions as ResolveExtensionId<E, TId>]: E;
+};
+
 // @public
 export const microsoftAuthApiRef: ApiRef_2<
   OAuthApi &
@@ -1898,8 +1906,8 @@ export const PageBlueprint: ExtensionBlueprint_2<{
     title: string | undefined;
   };
   configInput: {
-    title?: string | undefined;
     path?: string | undefined;
+    title?: string | undefined;
   };
   dataRefs: never;
 }>;
@@ -2069,6 +2077,26 @@ export const Progress: {
 // @public (undocumented)
 export type ProgressProps = {};
 
+// @public (undocumented)
+export type ResolveExtensionId<
+  TExtension extends ExtensionDefinition,
+  TNamespace extends string,
+> = TExtension extends ExtensionDefinition<{
+  kind: infer IKind extends string | undefined;
+  name: infer IName extends string | undefined;
+  params: any;
+}>
+  ? [string] extends [IKind | IName]
+    ? never
+    : (
+        undefined extends IName ? TNamespace : `${TNamespace}/${IName}`
+      ) extends infer INamePart extends string
+    ? IKind extends string
+      ? `${IKind}:${INamePart}`
+      : INamePart
+    : never
+  : never;
+
 // @public
 export type RouteFunc<TParams extends AnyRouteRefParams> = (
   ...input: TParams extends undefined ? readonly [] : readonly [params: TParams]
@@ -2193,8 +2221,8 @@ export const SubPageBlueprint: ExtensionBlueprint_2<{
     title: string | undefined;
   };
   configInput: {
-    title?: string | undefined;
     path?: string | undefined;
+    title?: string | undefined;
   };
   dataRefs: never;
 }>;

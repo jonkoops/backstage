@@ -13,6 +13,7 @@ import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { IconComponent } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/core-plugin-api';
@@ -24,158 +25,163 @@ const _default: OverridableFrontendPlugin<
     root: RouteRef<undefined>;
   },
   {},
-  {
-    'api:catalog-unprocessed-entities': OverridableExtensionDefinition<{
-      kind: 'api';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {};
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'nav-item:catalog-unprocessed-entities': OverridableExtensionDefinition<{
-      kind: 'nav-item';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        {
-          title: string;
-          icon: IconComponent;
-          routeRef: RouteRef_2<undefined>;
-        },
-        'core.nav-item.target',
-        {}
-      >;
-      inputs: {};
-      params: {
-        title: string;
-        icon: IconComponent;
-        routeRef: RouteRef_2<undefined>;
-      };
-    }>;
-    'page:catalog-unprocessed-entities': OverridableExtensionDefinition<{
-      kind: 'page';
-      name: undefined;
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            string,
-            'core.title',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {
-        pages: ExtensionInput<
-          | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-          | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-          | ConfigurableExtensionDataRef<
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'page';
+        name: undefined;
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
               RouteRef_2<AnyRouteRefParams>,
               'core.routing.ref',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
               string,
               'core.title',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<
               IconElement,
               'core.icon',
               {
                 optional: true;
               }
-            >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-      };
-      params: {
-        path: string;
-        title?: string;
-        icon?: IconElement;
-        loader?: () => Promise<JSX_2.Element>;
-        routeRef?: RouteRef_2;
-        noHeader?: boolean;
-      };
-    }>;
-    'sub-page:catalog-unprocessed-entities': OverridableExtensionDefinition<{
-      kind: 'sub-page';
-      name: undefined;
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
+            >;
+        inputs: {
+          pages: ExtensionInput<
+            | ConfigurableExtensionDataRef<
+                JSX_2.Element,
+                'core.reactElement',
+                {}
+              >
+            | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
+            | ConfigurableExtensionDataRef<
+                RouteRef_2<AnyRouteRefParams>,
+                'core.routing.ref',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                string,
+                'core.title',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                IconElement,
+                'core.icon',
+                {
+                  optional: true;
+                }
+              >,
             {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<string, 'core.title', {}>
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
+              singleton: false;
+              optional: false;
+              internal: false;
             }
           >;
-      inputs: {};
-      params: {
-        path: string;
-        title: string;
-        icon?: IconElement;
-        loader: () => Promise<JSX.Element>;
-        routeRef?: RouteRef_2;
-      };
-    }>;
-  }
+        };
+        params: {
+          path: string;
+          title?: string;
+          icon?: IconElement;
+          loader?: () => Promise<JSX_2.Element>;
+          routeRef?: RouteRef_2;
+          noHeader?: boolean;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'nav-item';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          {
+            title: string;
+            icon: IconComponent;
+            routeRef: RouteRef_2<undefined>;
+          },
+          'core.nav-item.target',
+          {}
+        >;
+        inputs: {};
+        params: {
+          title: string;
+          icon: IconComponent;
+          routeRef: RouteRef_2<undefined>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'api';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {};
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'sub-page';
+        name: undefined;
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
+              RouteRef_2<AnyRouteRefParams>,
+              'core.routing.ref',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<string, 'core.title', {}>
+          | ExtensionDataRef<
+              IconElement,
+              'core.icon',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        params: {
+          path: string;
+          title: string;
+          icon?: IconElement;
+          loader: () => Promise<JSX.Element>;
+          routeRef?: RouteRef_2;
+        };
+      }>,
+    'catalog-unprocessed-entities'
+  >
 >;
 export default _default;
 

@@ -106,7 +106,7 @@ export function toInternalExtension<TConfig, TConfigInput>(
   return internal;
 }
 
-/** @ignore */
+/** @public */
 export type ResolveExtensionId<
   TExtension extends ExtensionDefinition,
   TNamespace extends string,

@@ -16,6 +16,7 @@ import { HomePageWidgetData } from '@backstage/plugin-home-react/alpha';
 import { IconComponent } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/frontend-plugin-api';
@@ -27,182 +28,187 @@ const _default: OverridableFrontendPlugin<
     root: RouteRef<undefined>;
   },
   {},
-  {
-    'api:home/visits': OverridableExtensionDefinition<{
-      kind: 'api';
-      name: 'visits';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {};
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'app-root-element:home/visit-listener': OverridableExtensionDefinition<{
-      kind: 'app-root-element';
-      name: 'visit-listener';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>;
-      inputs: {};
-      params: {
-        element: JSX.Element;
-      };
-    }>;
-    'home-page-widget:home/random-joke': OverridableExtensionDefinition<{
-      kind: 'home-page-widget';
-      name: 'random-joke';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
-      inputs: {};
-      params: HomePageWidgetBlueprintParams;
-    }>;
-    'home-page-widget:home/starred-entities': OverridableExtensionDefinition<{
-      kind: 'home-page-widget';
-      name: 'starred-entities';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
-      inputs: {};
-      params: HomePageWidgetBlueprintParams;
-    }>;
-    'home-page-widget:home/toolkit': OverridableExtensionDefinition<{
-      kind: 'home-page-widget';
-      name: 'toolkit';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
-      inputs: {};
-      params: HomePageWidgetBlueprintParams;
-    }>;
-    'nav-item:home': OverridableExtensionDefinition<{
-      kind: 'nav-item';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        {
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'nav-item';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          {
+            title: string;
+            icon: IconComponent;
+            routeRef: RouteRef<undefined>;
+          },
+          'core.nav-item.target',
+          {}
+        >;
+        inputs: {};
+        params: {
           title: string;
           icon: IconComponent;
           routeRef: RouteRef<undefined>;
-        },
-        'core.nav-item.target',
-        {}
-      >;
-      inputs: {};
-      params: {
-        title: string;
-        icon: IconComponent;
-        routeRef: RouteRef<undefined>;
-      };
-    }>;
-    'page:home': OverridableExtensionDefinition<{
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            string,
-            'core.title',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {
-        pages: ExtensionInput<
-          | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-          | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-          | ConfigurableExtensionDataRef<
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
               RouteRef<AnyRouteRefParams>,
               'core.routing.ref',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
               string,
               'core.title',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<
               IconElement,
               'core.icon',
               {
                 optional: true;
               }
+            >;
+        inputs: {
+          pages: ExtensionInput<
+            | ConfigurableExtensionDataRef<
+                JSX_2.Element,
+                'core.reactElement',
+                {}
+              >
+            | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
+            | ConfigurableExtensionDataRef<
+                RouteRef<AnyRouteRefParams>,
+                'core.routing.ref',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                string,
+                'core.title',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                IconElement,
+                'core.icon',
+                {
+                  optional: true;
+                }
+              >,
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+          widgets: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              HomePageWidgetData,
+              'home.widget.data',
+              {}
             >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-        widgets: ExtensionInput<
-          ConfigurableExtensionDataRef<
-            HomePageWidgetData,
-            'home.widget.data',
-            {}
-          >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-        layout: ExtensionInput<
-          ConfigurableExtensionDataRef<
-            (props: HomePageLayoutProps) => JSX_2.Element,
-            'home.layout.component',
-            {}
-          >,
-          {
-            singleton: true;
-            optional: true;
-            internal: true;
-          }
-        >;
-      };
-      kind: 'page';
-      name: undefined;
-      params: {
-        path: string;
-        title?: string;
-        icon?: IconElement;
-        loader?: () => Promise<JSX_2.Element>;
-        routeRef?: RouteRef;
-        noHeader?: boolean;
-      };
-    }>;
-  }
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+          layout: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              (props: HomePageLayoutProps) => JSX_2.Element,
+              'home.layout.component',
+              {}
+            >,
+            {
+              singleton: true;
+              optional: true;
+              internal: true;
+            }
+          >;
+        };
+        kind: 'page';
+        name: undefined;
+        params: {
+          path: string;
+          title?: string;
+          icon?: IconElement;
+          loader?: () => Promise<JSX_2.Element>;
+          routeRef?: RouteRef;
+          noHeader?: boolean;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'app-root-element';
+        name: 'visit-listener';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>;
+        inputs: {};
+        params: {
+          element: JSX.Element;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'api';
+        name: 'visits';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {};
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'home-page-widget';
+        name: 'toolkit';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
+        inputs: {};
+        params: HomePageWidgetBlueprintParams;
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'home-page-widget';
+        name: 'starred-entities';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
+        inputs: {};
+        params: HomePageWidgetBlueprintParams;
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'home-page-widget';
+        name: 'random-joke';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<HomePageWidgetData, 'home.widget.data', {}>;
+        inputs: {};
+        params: HomePageWidgetBlueprintParams;
+      }>,
+    'home'
+  >
 >;
 export default _default;
 
@@ -224,16 +230,16 @@ export const homeTranslationRef: TranslationRef<
     readonly 'widgetSettingsOverlay.deleteWidgetTooltip': 'Delete widget';
     readonly 'widgetSettingsOverlay.submitButtonTitle': 'Submit';
     readonly 'starredEntityListItem.removeFavoriteEntityTitle': 'Remove entity from favorites';
-    readonly 'visitList.empty.title': 'There are no visits to show yet.';
-    readonly 'visitList.empty.description': 'Once you start using Backstage, your visits will appear here as a quick link to carry on where you left off.';
     readonly 'visitList.few.title': 'The more pages you visit, the more pages will appear here.';
-    readonly 'quickStart.title': 'Onboarding';
+    readonly 'visitList.empty.description': 'Once you start using Backstage, your visits will appear here as a quick link to carry on where you left off.';
+    readonly 'visitList.empty.title': 'There are no visits to show yet.';
     readonly 'quickStart.description': 'Get started with Backstage';
+    readonly 'quickStart.title': 'Onboarding';
     readonly 'quickStart.learnMoreLinkTitle': 'Learn more';
     readonly 'visitedByType.action.viewMore': 'View more';
     readonly 'visitedByType.action.viewLess': 'View less';
-    readonly 'featuredDocsCard.empty.title': 'No documents to show';
     readonly 'featuredDocsCard.empty.description': 'Create your own document. Check out our Getting Started Information';
+    readonly 'featuredDocsCard.empty.title': 'No documents to show';
     readonly 'featuredDocsCard.empty.learnMoreLinkTitle': 'DOCS';
     readonly 'featuredDocsCard.learnMoreTitle': 'LEARN MORE';
   }

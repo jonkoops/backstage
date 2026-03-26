@@ -13,6 +13,7 @@ import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { IconComponent } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/frontend-plugin-api';
@@ -28,168 +29,173 @@ const _default: OverridableFrontendPlugin<
     root: RouteRef_2<undefined>;
   },
   {},
-  {
-    'api:search': OverridableExtensionDefinition<{
-      kind: 'api';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {};
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'nav-item:search': OverridableExtensionDefinition<{
-      kind: 'nav-item';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        {
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'nav-item';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          {
+            title: string;
+            icon: IconComponent;
+            routeRef: RouteRef<undefined>;
+          },
+          'core.nav-item.target',
+          {}
+        >;
+        inputs: {};
+        params: {
           title: string;
           icon: IconComponent;
           routeRef: RouteRef<undefined>;
-        },
-        'core.nav-item.target',
-        {}
-      >;
-      inputs: {};
-      params: {
-        title: string;
-        icon: IconComponent;
-        routeRef: RouteRef<undefined>;
-      };
-    }>;
-    'page:search': OverridableExtensionDefinition<{
-      config: {
-        noTrack: boolean;
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        noTrack?: boolean | undefined;
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            string,
-            'core.title',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {
-        pages: ExtensionInput<
-          | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-          | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-          | ConfigurableExtensionDataRef<
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'api';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {};
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          noTrack: boolean;
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          noTrack?: boolean | undefined;
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
               RouteRef<AnyRouteRefParams>,
               'core.routing.ref',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
               string,
               'core.title',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<
               IconElement,
               'core.icon',
               {
                 optional: true;
               }
+            >;
+        inputs: {
+          pages: ExtensionInput<
+            | ConfigurableExtensionDataRef<
+                JSX_2.Element,
+                'core.reactElement',
+                {}
+              >
+            | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
+            | ConfigurableExtensionDataRef<
+                RouteRef<AnyRouteRefParams>,
+                'core.routing.ref',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                string,
+                'core.title',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                IconElement,
+                'core.icon',
+                {
+                  optional: true;
+                }
+              >,
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+          items: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              {
+                predicate?: SearchResultItemExtensionPredicate;
+                component: SearchResultItemExtensionComponent;
+                icon?: JSX_2.Element;
+              },
+              'search.search-result-list-item.item',
+              {}
             >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-        items: ExtensionInput<
-          ConfigurableExtensionDataRef<
             {
-              predicate?: SearchResultItemExtensionPredicate;
-              component: SearchResultItemExtensionComponent;
-              icon?: JSX_2.Element;
-            },
-            'search.search-result-list-item.item',
-            {}
-          >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-        resultTypes: ExtensionInput<
-          ConfigurableExtensionDataRef<
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+          resultTypes: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              {
+                value: string;
+                name: string;
+                icon: JSX_2.Element;
+              },
+              'search.filters.result-types.type',
+              {}
+            >,
             {
-              value: string;
-              name: string;
-              icon: JSX_2.Element;
-            },
-            'search.filters.result-types.type',
-            {}
-          >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-        searchFilters: ExtensionInput<
-          ConfigurableExtensionDataRef<
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+          searchFilters: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              {
+                component: SearchFilterExtensionComponent;
+              },
+              'search.filters.filter',
+              {}
+            >,
             {
-              component: SearchFilterExtensionComponent;
-            },
-            'search.filters.filter',
-            {}
-          >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-      };
-      kind: 'page';
-      name: undefined;
-      params: {
-        path: string;
-        title?: string;
-        icon?: IconElement;
-        loader?: () => Promise<JSX_2.Element>;
-        routeRef?: RouteRef;
-        noHeader?: boolean;
-      };
-    }>;
-  }
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+        };
+        kind: 'page';
+        name: undefined;
+        params: {
+          path: string;
+          title?: string;
+          icon?: IconElement;
+          loader?: () => Promise<JSX_2.Element>;
+          routeRef?: RouteRef;
+          noHeader?: boolean;
+        };
+      }>,
+    'search'
+  >
 >;
 export default _default;
 
@@ -242,8 +248,8 @@ export const searchPage: OverridableExtensionDefinition<{
   };
   configInput: {
     noTrack?: boolean | undefined;
-    title?: string | undefined;
     path?: string | undefined;
+    title?: string | undefined;
   };
   output:
     | ExtensionDataRef<string, 'core.routing.path', {}>

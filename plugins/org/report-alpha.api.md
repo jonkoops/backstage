@@ -9,6 +9,7 @@ import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { ExternalRouteRef } from '@backstage/core-plugin-api';
 import { FilterPredicate } from '@backstage/filter-predicates';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { TranslationRef } from '@backstage/frontend-plugin-api';
@@ -19,186 +20,187 @@ const _default: OverridableFrontendPlugin<
   {
     catalogIndex: ExternalRouteRef<undefined, true>;
   },
-  {
-    'entity-card:org/group-profile': OverridableExtensionDefinition<{
-      kind: 'entity-card';
-      name: 'group-profile';
-      config: {
-        filter: FilterPredicate | undefined;
-        type: 'content' | 'info' | undefined;
-      };
-      configInput: {
-        filter?: FilterPredicate | undefined;
-        type?: 'content' | 'info' | undefined;
-      };
-      output:
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            (entity: Entity) => boolean,
-            'catalog.entity-filter-function',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            string,
-            'catalog.entity-filter-expression',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            EntityCardType,
-            'catalog.entity-card-type',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      params: {
-        loader: () => Promise<JSX.Element>;
-        filter?: string | FilterPredicate | ((entity: Entity) => boolean);
-        type?: EntityCardType;
-      };
-    }>;
-    'entity-card:org/members-list': OverridableExtensionDefinition<{
-      config: {
-        initialRelationAggregation: 'direct' | 'aggregated' | undefined;
-        showAggregateMembersToggle: boolean | undefined;
-        filter: FilterPredicate | undefined;
-        type: 'content' | 'info' | undefined;
-      };
-      configInput: {
-        showAggregateMembersToggle?: boolean | undefined;
-        initialRelationAggregation?: 'direct' | 'aggregated' | undefined;
-        filter?: FilterPredicate | undefined;
-        type?: 'content' | 'info' | undefined;
-      };
-      output:
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            (entity: Entity) => boolean,
-            'catalog.entity-filter-function',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            string,
-            'catalog.entity-filter-expression',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            EntityCardType,
-            'catalog.entity-card-type',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      kind: 'entity-card';
-      name: 'members-list';
-      params: {
-        loader: () => Promise<JSX.Element>;
-        filter?: string | FilterPredicate | ((entity: Entity) => boolean);
-        type?: EntityCardType;
-      };
-    }>;
-    'entity-card:org/ownership': OverridableExtensionDefinition<{
-      config: {
-        initialRelationAggregation: 'direct' | 'aggregated' | undefined;
-        showAggregateMembersToggle: boolean | undefined;
-        ownedKinds: string[] | undefined;
-        filter: FilterPredicate | undefined;
-        type: 'content' | 'info' | undefined;
-      };
-      configInput: {
-        showAggregateMembersToggle?: boolean | undefined;
-        initialRelationAggregation?: 'direct' | 'aggregated' | undefined;
-        ownedKinds?: string[] | undefined;
-        filter?: FilterPredicate | undefined;
-        type?: 'content' | 'info' | undefined;
-      };
-      output:
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            (entity: Entity) => boolean,
-            'catalog.entity-filter-function',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            string,
-            'catalog.entity-filter-expression',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            EntityCardType,
-            'catalog.entity-card-type',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      kind: 'entity-card';
-      name: 'ownership';
-      params: {
-        loader: () => Promise<JSX.Element>;
-        filter?: string | FilterPredicate | ((entity: Entity) => boolean);
-        type?: EntityCardType;
-      };
-    }>;
-    'entity-card:org/user-profile': OverridableExtensionDefinition<{
-      config: {
-        maxRelations: number | undefined;
-        hideIcons: boolean;
-        filter: FilterPredicate | undefined;
-        type: 'content' | 'info' | undefined;
-      };
-      configInput: {
-        hideIcons?: boolean | undefined;
-        maxRelations?: number | undefined;
-        filter?: FilterPredicate | undefined;
-        type?: 'content' | 'info' | undefined;
-      };
-      output:
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            (entity: Entity) => boolean,
-            'catalog.entity-filter-function',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            string,
-            'catalog.entity-filter-expression',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            EntityCardType,
-            'catalog.entity-card-type',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      kind: 'entity-card';
-      name: 'user-profile';
-      params: {
-        loader: () => Promise<JSX.Element>;
-        filter?: string | FilterPredicate | ((entity: Entity) => boolean);
-        type?: EntityCardType;
-      };
-    }>;
-  }
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'entity-card';
+        name: 'group-profile';
+        config: {
+          filter: FilterPredicate | undefined;
+          type: 'info' | 'content' | undefined;
+        };
+        configInput: {
+          filter?: FilterPredicate | undefined;
+          type?: 'info' | 'content' | undefined;
+        };
+        output:
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
+              (entity: Entity) => boolean,
+              'catalog.entity-filter-function',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              string,
+              'catalog.entity-filter-expression',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              EntityCardType,
+              'catalog.entity-card-type',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        params: {
+          loader: () => Promise<JSX.Element>;
+          filter?: string | FilterPredicate | ((entity: Entity) => boolean);
+          type?: EntityCardType;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          initialRelationAggregation: 'direct' | 'aggregated' | undefined;
+          showAggregateMembersToggle: boolean | undefined;
+          filter: FilterPredicate | undefined;
+          type: 'info' | 'content' | undefined;
+        };
+        configInput: {
+          showAggregateMembersToggle?: boolean | undefined;
+          initialRelationAggregation?: 'direct' | 'aggregated' | undefined;
+          filter?: FilterPredicate | undefined;
+          type?: 'info' | 'content' | undefined;
+        };
+        output:
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
+              (entity: Entity) => boolean,
+              'catalog.entity-filter-function',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              string,
+              'catalog.entity-filter-expression',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              EntityCardType,
+              'catalog.entity-card-type',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        kind: 'entity-card';
+        name: 'members-list';
+        params: {
+          loader: () => Promise<JSX.Element>;
+          filter?: string | FilterPredicate | ((entity: Entity) => boolean);
+          type?: EntityCardType;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          initialRelationAggregation: 'direct' | 'aggregated' | undefined;
+          showAggregateMembersToggle: boolean | undefined;
+          ownedKinds: string[] | undefined;
+          filter: FilterPredicate | undefined;
+          type: 'info' | 'content' | undefined;
+        };
+        configInput: {
+          showAggregateMembersToggle?: boolean | undefined;
+          initialRelationAggregation?: 'direct' | 'aggregated' | undefined;
+          ownedKinds?: string[] | undefined;
+          filter?: FilterPredicate | undefined;
+          type?: 'info' | 'content' | undefined;
+        };
+        output:
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
+              (entity: Entity) => boolean,
+              'catalog.entity-filter-function',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              string,
+              'catalog.entity-filter-expression',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              EntityCardType,
+              'catalog.entity-card-type',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        kind: 'entity-card';
+        name: 'ownership';
+        params: {
+          loader: () => Promise<JSX.Element>;
+          filter?: string | FilterPredicate | ((entity: Entity) => boolean);
+          type?: EntityCardType;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          maxRelations: number | undefined;
+          hideIcons: boolean;
+          filter: FilterPredicate | undefined;
+          type: 'info' | 'content' | undefined;
+        };
+        configInput: {
+          hideIcons?: boolean | undefined;
+          maxRelations?: number | undefined;
+          filter?: FilterPredicate | undefined;
+          type?: 'info' | 'content' | undefined;
+        };
+        output:
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
+              (entity: Entity) => boolean,
+              'catalog.entity-filter-function',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              string,
+              'catalog.entity-filter-expression',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              EntityCardType,
+              'catalog.entity-card-type',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        kind: 'entity-card';
+        name: 'user-profile';
+        params: {
+          loader: () => Promise<JSX.Element>;
+          filter?: string | FilterPredicate | ((entity: Entity) => boolean);
+          type?: EntityCardType;
+        };
+      }>,
+    'org'
+  >
 >;
 export default _default;
 

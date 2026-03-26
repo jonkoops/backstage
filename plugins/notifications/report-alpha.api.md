@@ -12,6 +12,7 @@ import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/core-plugin-api';
@@ -24,99 +25,104 @@ const _default: OverridableFrontendPlugin<
     root: RouteRef<undefined>;
   },
   {},
-  {
-    'api:notifications': OverridableExtensionDefinition<{
-      kind: 'api';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {};
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'page:notifications': OverridableExtensionDefinition<{
-      kind: 'page';
-      name: undefined;
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            string,
-            'core.title',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {
-        pages: ExtensionInput<
-          | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-          | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-          | ConfigurableExtensionDataRef<
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'page';
+        name: undefined;
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
               RouteRef_2<AnyRouteRefParams>,
               'core.routing.ref',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
               string,
               'core.title',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<
               IconElement,
               'core.icon',
               {
                 optional: true;
               }
-            >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-      };
-      params: {
-        path: string;
-        title?: string;
-        icon?: IconElement;
-        loader?: () => Promise<JSX_2.Element>;
-        routeRef?: RouteRef_2;
-        noHeader?: boolean;
-      };
-    }>;
-  }
+            >;
+        inputs: {
+          pages: ExtensionInput<
+            | ConfigurableExtensionDataRef<
+                JSX_2.Element,
+                'core.reactElement',
+                {}
+              >
+            | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
+            | ConfigurableExtensionDataRef<
+                RouteRef_2<AnyRouteRefParams>,
+                'core.routing.ref',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                string,
+                'core.title',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                IconElement,
+                'core.icon',
+                {
+                  optional: true;
+                }
+              >,
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+        };
+        params: {
+          path: string;
+          title?: string;
+          icon?: IconElement;
+          loader?: () => Promise<JSX_2.Element>;
+          routeRef?: RouteRef_2;
+          noHeader?: boolean;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'api';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {};
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>,
+    'notifications'
+  >
 >;
 export default _default;
 
@@ -124,13 +130,13 @@ export default _default;
 export const notificationsTranslationRef: TranslationRef<
   'plugin.notifications',
   {
-    readonly 'table.errors.markAllReadFailed': 'Failed to mark all notifications as read';
     readonly 'table.pagination.labelDisplayedRows': '{from}-{to} of {count}';
     readonly 'table.pagination.firstTooltip': 'First Page';
     readonly 'table.pagination.labelRowsSelect': 'rows';
     readonly 'table.pagination.lastTooltip': 'Last Page';
     readonly 'table.pagination.nextTooltip': 'Next Page';
     readonly 'table.pagination.previousTooltip': 'Previous Page';
+    readonly 'table.errors.markAllReadFailed': 'Failed to mark all notifications as read';
     readonly 'table.emptyMessage': 'No records to display';
     readonly 'table.bulkActions.markAllRead': 'Mark all read';
     readonly 'table.bulkActions.markSelectedAsRead': 'Mark selected as read';
@@ -140,16 +146,16 @@ export const notificationsTranslationRef: TranslationRef<
     readonly 'table.confirmDialog.title': 'Are you sure?';
     readonly 'table.confirmDialog.markAllReadDescription': 'Mark <b>all</b> notifications as <b>read</b>.';
     readonly 'table.confirmDialog.markAllReadConfirmation': 'Mark All';
+    readonly 'filters.title': 'Filters';
     readonly 'filters.view.all': 'All';
     readonly 'filters.view.label': 'View';
     readonly 'filters.view.read': 'Read notifications';
     readonly 'filters.view.saved': 'Saved';
     readonly 'filters.view.unread': 'Unread notifications';
-    readonly 'filters.title': 'Filters';
     readonly 'filters.severity.normal': 'Normal';
+    readonly 'filters.severity.label': 'Min severity';
     readonly 'filters.severity.high': 'High';
     readonly 'filters.severity.low': 'Low';
-    readonly 'filters.severity.label': 'Min severity';
     readonly 'filters.severity.critical': 'Critical';
     readonly 'filters.topic.label': 'Topic';
     readonly 'filters.topic.anyTopic': 'Any topic';
@@ -161,12 +167,12 @@ export const notificationsTranslationRef: TranslationRef<
     readonly 'filters.sortBy.origin': 'Origin';
     readonly 'filters.sortBy.label': 'Sort by';
     readonly 'filters.sortBy.placeholder': 'Field to sort by';
+    readonly 'filters.sortBy.topic': 'Topic';
     readonly 'filters.sortBy.newest': 'Newest on top';
     readonly 'filters.sortBy.oldest': 'Oldest on top';
-    readonly 'filters.sortBy.topic': 'Topic';
+    readonly 'settings.title': 'Notification settings';
     readonly 'settings.table.origin': 'Origin';
     readonly 'settings.table.topic': 'Topic';
-    readonly 'settings.title': 'Notification settings';
     readonly 'settings.errors.useNotificationFormat': 'useNotificationFormat must be used within a NotificationFormatProvider';
     readonly 'settings.errorTitle': 'Failed to load settings';
     readonly 'settings.noSettingsAvailable': 'No notification settings available, check back later';

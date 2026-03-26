@@ -25,6 +25,7 @@ import { IconElement } from '@backstage/frontend-plugin-api';
 import { IconLinkVerticalProps } from '@backstage/core-components';
 import { JSX as JSX_2 } from 'react';
 import { LayoutOptions } from '@backstage/plugin-scaffolder-react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { PathParams } from '@backstage/core-plugin-api';
@@ -62,567 +63,572 @@ const _default: OverridableFrontendPlugin<
       true
     >;
   },
-  {
-    'api:scaffolder': OverridableExtensionDefinition<{
-      kind: 'api';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {};
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'api:scaffolder/form-decorators': OverridableExtensionDefinition<{
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {
-        formDecorators: ExtensionInput<
-          ConfigurableExtensionDataRef<
-            ScaffolderFormDecorator,
-            'scaffolder.form-decorator-loader',
-            {}
-          >,
+  MakeSortedExtensionsMap<
+    | OverridableExtensionDefinition<{
+        kind: 'nav-item';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
           {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
+            title: string;
+            icon: IconComponent;
+            routeRef: RouteRef_2<undefined>;
+          },
+          'core.nav-item.target',
+          {}
         >;
-      };
-      kind: 'api';
-      name: 'form-decorators';
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'api:scaffolder/form-fields': OverridableExtensionDefinition<{
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
-      inputs: {
-        formFields: ExtensionInput<
-          ConfigurableExtensionDataRef<
-            () => Promise<FormField>,
-            'scaffolder.form-field-loader',
-            {}
-          >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
-        >;
-      };
-      kind: 'api';
-      name: 'form-fields';
-      params: <
-        TApi,
-        TImpl extends TApi,
-        TDeps extends { [name in string]: unknown },
-      >(
-        params: ApiFactory<TApi, TImpl, TDeps>,
-      ) => ExtensionBlueprintParams<AnyApiFactory>;
-    }>;
-    'entity-icon-link:scaffolder/launch-template': OverridableExtensionDefinition<{
-      kind: 'entity-icon-link';
-      name: 'launch-template';
-      config: {
-        label: string | undefined;
-        title: string | undefined;
-        filter: FilterPredicate | undefined;
-      };
-      configInput: {
-        filter?: FilterPredicate | undefined;
-        label?: string | undefined;
-        title?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<
-            (entity: Entity) => boolean,
-            'catalog.entity-filter-function',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            string,
-            'catalog.entity-filter-expression',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            () => IconLinkVerticalProps,
-            'entity-icon-link-props',
-            {}
-          >;
-      inputs: {};
-      params: {
-        useProps: () => Omit<IconLinkVerticalProps, 'color'>;
-        filter?: FilterPredicate | ((entity: Entity) => boolean);
-      };
-    }>;
-    'nav-item:scaffolder': OverridableExtensionDefinition<{
-      kind: 'nav-item';
-      name: undefined;
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        {
+        inputs: {};
+        params: {
           title: string;
           icon: IconComponent;
           routeRef: RouteRef_2<undefined>;
-        },
-        'core.nav-item.target',
-        {}
-      >;
-      inputs: {};
-      params: {
-        title: string;
-        icon: IconComponent;
-        routeRef: RouteRef_2<undefined>;
-      };
-    }>;
-    'page:scaffolder': OverridableExtensionDefinition<{
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'api';
+        name: undefined;
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {};
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {
+          formDecorators: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              ScaffolderFormDecorator,
+              'scaffolder.form-decorator-loader',
+              {}
+            >,
             {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<
-            string,
-            'core.title',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
+              singleton: false;
+              optional: false;
+              internal: false;
             }
           >;
-      inputs: {
-        pages: ExtensionInput<
-          | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-          | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-          | ConfigurableExtensionDataRef<
+        };
+        kind: 'api';
+        name: 'form-decorators';
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+        inputs: {
+          formFields: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              () => Promise<FormField>,
+              'scaffolder.form-field-loader',
+              {}
+            >,
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+        };
+        kind: 'api';
+        name: 'form-fields';
+        params: <
+          TApi,
+          TImpl extends TApi,
+          TDeps extends { [name in string]: unknown },
+        >(
+          params: ApiFactory<TApi, TImpl, TDeps>,
+        ) => ExtensionBlueprintParams<AnyApiFactory>;
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
               RouteRef_2<AnyRouteRefParams>,
               'core.routing.ref',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<
               string,
               'core.title',
               {
                 optional: true;
               }
             >
-          | ConfigurableExtensionDataRef<
+          | ExtensionDataRef<
               IconElement,
               'core.icon',
               {
                 optional: true;
               }
+            >;
+        inputs: {
+          pages: ExtensionInput<
+            | ConfigurableExtensionDataRef<
+                JSX_2.Element,
+                'core.reactElement',
+                {}
+              >
+            | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
+            | ConfigurableExtensionDataRef<
+                RouteRef_2<AnyRouteRefParams>,
+                'core.routing.ref',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                string,
+                'core.title',
+                {
+                  optional: true;
+                }
+              >
+            | ConfigurableExtensionDataRef<
+                IconElement,
+                'core.icon',
+                {
+                  optional: true;
+                }
+              >,
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+          formFields: ExtensionInput<
+            ConfigurableExtensionDataRef<
+              () => Promise<FormField>,
+              'scaffolder.form-field-loader',
+              {}
             >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
+            {
+              singleton: false;
+              optional: false;
+              internal: false;
+            }
+          >;
+        };
+        kind: 'page';
+        name: undefined;
+        params: {
+          path: string;
+          title?: string;
+          icon?: IconElement;
+          loader?: () => Promise<JSX_2.Element>;
+          routeRef?: RouteRef_2;
+          noHeader?: boolean;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
+              RouteRef_2<AnyRouteRefParams>,
+              'core.routing.ref',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<string, 'core.title', {}>
+          | ExtensionDataRef<
+              IconElement,
+              'core.icon',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        kind: 'sub-page';
+        name: 'templates';
+        params: {
+          path: string;
+          title: string;
+          icon?: IconElement;
+          loader: () => Promise<JSX.Element>;
+          routeRef?: RouteRef_2;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'sub-page';
+        name: 'tasks';
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
+              RouteRef_2<AnyRouteRefParams>,
+              'core.routing.ref',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<string, 'core.title', {}>
+          | ExtensionDataRef<
+              IconElement,
+              'core.icon',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        params: {
+          path: string;
+          title: string;
+          icon?: IconElement;
+          loader: () => Promise<JSX.Element>;
+          routeRef?: RouteRef_2;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'sub-page';
+        name: 'actions';
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
+              RouteRef_2<AnyRouteRefParams>,
+              'core.routing.ref',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<string, 'core.title', {}>
+          | ExtensionDataRef<
+              IconElement,
+              'core.icon',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        params: {
+          path: string;
+          title: string;
+          icon?: IconElement;
+          loader: () => Promise<JSX.Element>;
+          routeRef?: RouteRef_2;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'sub-page';
+        name: 'editor';
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
+              RouteRef_2<AnyRouteRefParams>,
+              'core.routing.ref',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<string, 'core.title', {}>
+          | ExtensionDataRef<
+              IconElement,
+              'core.icon',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        params: {
+          path: string;
+          title: string;
+          icon?: IconElement;
+          loader: () => Promise<JSX.Element>;
+          routeRef?: RouteRef_2;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'sub-page';
+        name: 'templating-extensions';
+        config: {
+          path: string | undefined;
+          title: string | undefined;
+        };
+        configInput: {
+          path?: string | undefined;
+          title?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<string, 'core.routing.path', {}>
+          | ExtensionDataRef<
+              RouteRef_2<AnyRouteRefParams>,
+              'core.routing.ref',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+          | ExtensionDataRef<string, 'core.title', {}>
+          | ExtensionDataRef<
+              IconElement,
+              'core.icon',
+              {
+                optional: true;
+              }
+            >;
+        inputs: {};
+        params: {
+          path: string;
+          title: string;
+          icon?: IconElement;
+          loader: () => Promise<JSX.Element>;
+          routeRef?: RouteRef_2;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'repo-url-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
         >;
-        formFields: ExtensionInput<
-          ConfigurableExtensionDataRef<
-            () => Promise<FormField>,
-            'scaffolder.form-field-loader',
-            {}
-          >,
-          {
-            singleton: false;
-            optional: false;
-            internal: false;
-          }
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'entity-name-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
         >;
-      };
-      kind: 'page';
-      name: undefined;
-      params: {
-        path: string;
-        title?: string;
-        icon?: IconElement;
-        loader?: () => Promise<JSX_2.Element>;
-        routeRef?: RouteRef_2;
-        noHeader?: boolean;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/entity-name-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'entity-name-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/entity-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'entity-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/entity-tags-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'entity-tags-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/multi-entity-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'multi-entity-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/my-groups-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'my-groups-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/owned-entity-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'owned-entity-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/owner-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'owner-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/repo-branch-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'repo-branch-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/repo-owner-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'repo-owner-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'scaffolder-form-field:scaffolder/repo-url-picker': OverridableExtensionDefinition<{
-      kind: 'scaffolder-form-field';
-      name: 'repo-url-picker';
-      config: {};
-      configInput: {};
-      output: ExtensionDataRef<
-        () => Promise<FormField>,
-        'scaffolder.form-field-loader',
-        {}
-      >;
-      inputs: {};
-      params: {
-        field: () => Promise<FormField>;
-      };
-    }>;
-    'sub-page:scaffolder/actions': OverridableExtensionDefinition<{
-      kind: 'sub-page';
-      name: 'actions';
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<string, 'core.title', {}>
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      params: {
-        path: string;
-        title: string;
-        icon?: IconElement;
-        loader: () => Promise<JSX.Element>;
-        routeRef?: RouteRef_2;
-      };
-    }>;
-    'sub-page:scaffolder/editor': OverridableExtensionDefinition<{
-      kind: 'sub-page';
-      name: 'editor';
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<string, 'core.title', {}>
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      params: {
-        path: string;
-        title: string;
-        icon?: IconElement;
-        loader: () => Promise<JSX.Element>;
-        routeRef?: RouteRef_2;
-      };
-    }>;
-    'sub-page:scaffolder/tasks': OverridableExtensionDefinition<{
-      kind: 'sub-page';
-      name: 'tasks';
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<string, 'core.title', {}>
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      params: {
-        path: string;
-        title: string;
-        icon?: IconElement;
-        loader: () => Promise<JSX.Element>;
-        routeRef?: RouteRef_2;
-      };
-    }>;
-    'sub-page:scaffolder/templates': OverridableExtensionDefinition<{
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<string, 'core.title', {}>
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      kind: 'sub-page';
-      name: 'templates';
-      params: {
-        path: string;
-        title: string;
-        icon?: IconElement;
-        loader: () => Promise<JSX.Element>;
-        routeRef?: RouteRef_2;
-      };
-    }>;
-    'sub-page:scaffolder/templating-extensions': OverridableExtensionDefinition<{
-      kind: 'sub-page';
-      name: 'templating-extensions';
-      config: {
-        path: string | undefined;
-        title: string | undefined;
-      };
-      configInput: {
-        title?: string | undefined;
-        path?: string | undefined;
-      };
-      output:
-        | ExtensionDataRef<string, 'core.routing.path', {}>
-        | ExtensionDataRef<
-            RouteRef_2<AnyRouteRefParams>,
-            'core.routing.ref',
-            {
-              optional: true;
-            }
-          >
-        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ExtensionDataRef<string, 'core.title', {}>
-        | ExtensionDataRef<
-            IconElement,
-            'core.icon',
-            {
-              optional: true;
-            }
-          >;
-      inputs: {};
-      params: {
-        path: string;
-        title: string;
-        icon?: IconElement;
-        loader: () => Promise<JSX.Element>;
-        routeRef?: RouteRef_2;
-      };
-    }>;
-  }
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'entity-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'owner-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'entity-tags-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'multi-entity-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'my-groups-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'owned-entity-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'repo-branch-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'scaffolder-form-field';
+        name: 'repo-owner-picker';
+        config: {};
+        configInput: {};
+        output: ExtensionDataRef<
+          () => Promise<FormField>,
+          'scaffolder.form-field-loader',
+          {}
+        >;
+        inputs: {};
+        params: {
+          field: () => Promise<FormField>;
+        };
+      }>
+    | OverridableExtensionDefinition<{
+        kind: 'entity-icon-link';
+        name: 'launch-template';
+        config: {
+          label: string | undefined;
+          title: string | undefined;
+          filter: FilterPredicate | undefined;
+        };
+        configInput: {
+          filter?: FilterPredicate | undefined;
+          title?: string | undefined;
+          label?: string | undefined;
+        };
+        output:
+          | ExtensionDataRef<
+              (entity: Entity) => boolean,
+              'catalog.entity-filter-function',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              string,
+              'catalog.entity-filter-expression',
+              {
+                optional: true;
+              }
+            >
+          | ExtensionDataRef<
+              () => IconLinkVerticalProps,
+              'entity-icon-link-props',
+              {}
+            >;
+        inputs: {};
+        params: {
+          useProps: () => Omit<IconLinkVerticalProps, 'color'>;
+          filter?: FilterPredicate | ((entity: Entity) => boolean);
+        };
+      }>,
+    'scaffolder'
+  >
 >;
 export default _default;
 
@@ -717,74 +723,74 @@ export type ScaffolderTemplateFormPreviewerClassKey =
 export const scaffolderTranslationRef: TranslationRef<
   'scaffolder',
   {
-    readonly 'fields.entityNamePicker.title': 'Name';
     readonly 'fields.entityNamePicker.description': 'Unique name of the component';
-    readonly 'fields.entityPicker.title': 'Entity';
+    readonly 'fields.entityNamePicker.title': 'Name';
     readonly 'fields.entityPicker.description': 'An entity from the catalog';
-    readonly 'fields.entityTagsPicker.title': 'Tags';
+    readonly 'fields.entityPicker.title': 'Entity';
     readonly 'fields.entityTagsPicker.description': "Add any relevant tags, hit 'Enter' to add new tags. Valid format: [a-z0-9+#] separated by [-], at most 63 characters";
-    readonly 'fields.multiEntityPicker.title': 'Entity';
+    readonly 'fields.entityTagsPicker.title': 'Tags';
     readonly 'fields.multiEntityPicker.description': 'An entity from the catalog';
-    readonly 'fields.myGroupsPicker.title': 'Entity';
+    readonly 'fields.multiEntityPicker.title': 'Entity';
     readonly 'fields.myGroupsPicker.description': 'An entity from the catalog';
-    readonly 'fields.ownedEntityPicker.title': 'Entity';
+    readonly 'fields.myGroupsPicker.title': 'Entity';
     readonly 'fields.ownedEntityPicker.description': 'An entity from the catalog';
-    readonly 'fields.ownerPicker.title': 'Owner';
+    readonly 'fields.ownedEntityPicker.title': 'Entity';
     readonly 'fields.ownerPicker.description': 'The owner of the component';
-    readonly 'fields.azureRepoPicker.organization.title': 'Organization';
+    readonly 'fields.ownerPicker.title': 'Owner';
     readonly 'fields.azureRepoPicker.organization.description': 'The Organization that this repo will belong to';
-    readonly 'fields.azureRepoPicker.project.title': 'Project';
+    readonly 'fields.azureRepoPicker.organization.title': 'Organization';
     readonly 'fields.azureRepoPicker.project.description': 'The Project that this repo will belong to';
-    readonly 'fields.bitbucketRepoPicker.project.title': 'Allowed Projects';
+    readonly 'fields.azureRepoPicker.project.title': 'Project';
     readonly 'fields.bitbucketRepoPicker.project.description': 'The Project that this repo will belong to';
+    readonly 'fields.bitbucketRepoPicker.project.title': 'Allowed Projects';
     readonly 'fields.bitbucketRepoPicker.project.inputTitle': 'Projects';
-    readonly 'fields.bitbucketRepoPicker.workspaces.title': 'Allowed Workspaces';
     readonly 'fields.bitbucketRepoPicker.workspaces.description': 'The Workspace that this repo will belong to';
+    readonly 'fields.bitbucketRepoPicker.workspaces.title': 'Allowed Workspaces';
     readonly 'fields.bitbucketRepoPicker.workspaces.inputTitle': 'Workspaces';
-    readonly 'fields.gerritRepoPicker.parent.title': 'Parent';
     readonly 'fields.gerritRepoPicker.parent.description': 'The project parent that the repo will belong to';
-    readonly 'fields.gerritRepoPicker.owner.title': 'Owner';
+    readonly 'fields.gerritRepoPicker.parent.title': 'Parent';
     readonly 'fields.gerritRepoPicker.owner.description': 'The owner of the project (optional)';
-    readonly 'fields.giteaRepoPicker.owner.title': 'Owner Available';
+    readonly 'fields.gerritRepoPicker.owner.title': 'Owner';
     readonly 'fields.giteaRepoPicker.owner.description': 'Gitea namespace where this repository will belong to. It can be the name of organization, group, subgroup, user, or the project.';
+    readonly 'fields.giteaRepoPicker.owner.title': 'Owner Available';
     readonly 'fields.giteaRepoPicker.owner.inputTitle': 'Owner';
-    readonly 'fields.githubRepoPicker.owner.title': 'Owner Available';
     readonly 'fields.githubRepoPicker.owner.description': 'The organization, user or project that this repo will belong to';
+    readonly 'fields.githubRepoPicker.owner.title': 'Owner Available';
     readonly 'fields.githubRepoPicker.owner.inputTitle': 'Owner';
-    readonly 'fields.gitlabRepoPicker.owner.title': 'Owner Available';
     readonly 'fields.gitlabRepoPicker.owner.description': 'GitLab namespace where this repository will belong to. It can be the name of organization, group, subgroup, user, or the project.';
+    readonly 'fields.gitlabRepoPicker.owner.title': 'Owner Available';
     readonly 'fields.gitlabRepoPicker.owner.inputTitle': 'Owner';
-    readonly 'fields.repoUrlPicker.host.title': 'Host';
     readonly 'fields.repoUrlPicker.host.description': 'The host where the repository will be created';
-    readonly 'fields.repoUrlPicker.repository.title': 'Repositories Available';
+    readonly 'fields.repoUrlPicker.host.title': 'Host';
     readonly 'fields.repoUrlPicker.repository.description': 'The name of the repository';
+    readonly 'fields.repoUrlPicker.repository.title': 'Repositories Available';
     readonly 'fields.repoUrlPicker.repository.inputTitle': 'Repository';
-    readonly 'fields.repoOwnerPicker.title': 'Owner';
     readonly 'fields.repoOwnerPicker.description': 'The owner of the repository';
+    readonly 'fields.repoOwnerPicker.title': 'Owner';
     readonly 'aboutCard.launchTemplate': 'Launch Template';
-    readonly 'actionsPage.content.emptyState.title': 'No information to display';
-    readonly 'actionsPage.content.emptyState.description': 'There are no actions installed or there was an issue communicating with backend.';
-    readonly 'actionsPage.content.searchFieldPlaceholder': 'Search for an action';
     readonly 'actionsPage.title': 'Installed actions';
-    readonly 'actionsPage.action.input': 'Input';
     readonly 'actionsPage.action.output': 'Output';
+    readonly 'actionsPage.action.input': 'Input';
     readonly 'actionsPage.action.examples': 'Examples';
+    readonly 'actionsPage.content.emptyState.description': 'There are no actions installed or there was an issue communicating with backend.';
+    readonly 'actionsPage.content.emptyState.title': 'No information to display';
+    readonly 'actionsPage.content.searchFieldPlaceholder': 'Search for an action';
     readonly 'actionsPage.subtitle': 'This is the collection of all installed actions';
     readonly 'actionsPage.pageTitle': 'Create a New Component';
-    readonly 'listTaskPage.content.emptyState.title': 'No information to display';
+    readonly 'listTaskPage.title': 'List template tasks';
     readonly 'listTaskPage.content.emptyState.description': 'There are no tasks or there was an issue communicating with backend.';
-    readonly 'listTaskPage.content.tableCell.template': 'Template';
+    readonly 'listTaskPage.content.emptyState.title': 'No information to display';
+    readonly 'listTaskPage.content.tableTitle': 'Tasks';
     readonly 'listTaskPage.content.tableCell.status': 'Status';
+    readonly 'listTaskPage.content.tableCell.template': 'Template';
     readonly 'listTaskPage.content.tableCell.owner': 'Owner';
     readonly 'listTaskPage.content.tableCell.created': 'Created';
     readonly 'listTaskPage.content.tableCell.taskID': 'Task ID';
-    readonly 'listTaskPage.content.tableTitle': 'Tasks';
-    readonly 'listTaskPage.title': 'List template tasks';
     readonly 'listTaskPage.subtitle': 'All tasks that have been started';
     readonly 'listTaskPage.pageTitle': 'Templates Tasks';
-    readonly 'ownerListPicker.title': 'Task Owner';
     readonly 'ownerListPicker.options.all': 'All';
     readonly 'ownerListPicker.options.owned': 'Owned';
+    readonly 'ownerListPicker.title': 'Task Owner';
     readonly 'ongoingTask.title': 'Run of';
     readonly 'ongoingTask.contextMenu.cancel': 'Cancel';
     readonly 'ongoingTask.contextMenu.retry': 'Retry';
@@ -805,28 +811,28 @@ export const scaffolderTranslationRef: TranslationRef<
     readonly 'templateEditorForm.stepper.emptyText': 'There are no spec parameters in the template to preview.';
     readonly 'renderSchema.undefined': 'No schema defined';
     readonly 'renderSchema.tableCell.name': 'Name';
+    readonly 'renderSchema.tableCell.description': 'Description';
     readonly 'renderSchema.tableCell.type': 'Type';
     readonly 'renderSchema.tableCell.title': 'Title';
-    readonly 'renderSchema.tableCell.description': 'Description';
+    readonly 'templatingExtensions.title': 'Templating Extensions';
     readonly 'templatingExtensions.content.values.title': 'Values';
     readonly 'templatingExtensions.content.values.notAvailable': 'There are no global template values defined.';
-    readonly 'templatingExtensions.content.emptyState.title': 'No information to display';
     readonly 'templatingExtensions.content.emptyState.description': 'There are no templating extensions available or there was an issue communicating with the backend.';
+    readonly 'templatingExtensions.content.emptyState.title': 'No information to display';
     readonly 'templatingExtensions.content.filters.title': 'Filters';
-    readonly 'templatingExtensions.content.filters.schema.input': 'Input';
     readonly 'templatingExtensions.content.filters.schema.output': 'Output';
+    readonly 'templatingExtensions.content.filters.schema.input': 'Input';
     readonly 'templatingExtensions.content.filters.schema.arguments': 'Arguments';
     readonly 'templatingExtensions.content.filters.examples': 'Examples';
     readonly 'templatingExtensions.content.filters.notAvailable': 'There are no template filters defined.';
     readonly 'templatingExtensions.content.filters.metadataAbsent': 'Filter metadata unavailable';
+    readonly 'templatingExtensions.content.searchFieldPlaceholder': 'Search for an extension';
     readonly 'templatingExtensions.content.functions.title': 'Functions';
     readonly 'templatingExtensions.content.functions.schema.output': 'Output';
     readonly 'templatingExtensions.content.functions.schema.arguments': 'Arguments';
     readonly 'templatingExtensions.content.functions.examples': 'Examples';
     readonly 'templatingExtensions.content.functions.notAvailable': 'There are no global template functions defined.';
     readonly 'templatingExtensions.content.functions.metadataAbsent': 'Function metadata unavailable';
-    readonly 'templatingExtensions.content.searchFieldPlaceholder': 'Search for an extension';
-    readonly 'templatingExtensions.title': 'Templating Extensions';
     readonly 'templatingExtensions.subtitle': 'This is the collection of available templating extensions';
     readonly 'templatingExtensions.pageTitle': 'Templating Extensions';
     readonly 'templateTypePicker.title': 'Categories';
@@ -856,16 +862,16 @@ export const scaffolderTranslationRef: TranslationRef<
     readonly 'templateEditorPage.templateEditorBrowser.reloadIconTooltip': 'Reload directory';
     readonly 'templateEditorPage.templateEditorBrowser.closeIconTooltip': 'Close directory';
     readonly 'templateEditorPage.templateEditorIntro.title': 'Get started by choosing one of the options below';
-    readonly 'templateEditorPage.templateEditorIntro.loadLocal.title': 'Load Template Directory';
     readonly 'templateEditorPage.templateEditorIntro.loadLocal.description': 'Load a local template directory, allowing you to both edit and try executing your own template.';
+    readonly 'templateEditorPage.templateEditorIntro.loadLocal.title': 'Load Template Directory';
     readonly 'templateEditorPage.templateEditorIntro.loadLocal.unsupportedTooltip': 'Only supported in some Chromium-based browsers with the page loaded over HTTPS';
-    readonly 'templateEditorPage.templateEditorIntro.createLocal.title': 'Create New Template';
     readonly 'templateEditorPage.templateEditorIntro.createLocal.description': 'Create a local template directory, allowing you to both edit and try executing your own template.';
+    readonly 'templateEditorPage.templateEditorIntro.createLocal.title': 'Create New Template';
     readonly 'templateEditorPage.templateEditorIntro.createLocal.unsupportedTooltip': 'Only supported in some Chromium-based browsers with the page loaded over HTTPS';
-    readonly 'templateEditorPage.templateEditorIntro.formEditor.title': 'Template Form Playground';
     readonly 'templateEditorPage.templateEditorIntro.formEditor.description': 'Preview and edit a template form, either using a sample template or by loading a template from the catalog.';
-    readonly 'templateEditorPage.templateEditorIntro.fieldExplorer.title': 'Custom Field Explorer';
+    readonly 'templateEditorPage.templateEditorIntro.formEditor.title': 'Template Form Playground';
     readonly 'templateEditorPage.templateEditorIntro.fieldExplorer.description': 'View and play around with available installed custom field extensions.';
+    readonly 'templateEditorPage.templateEditorIntro.fieldExplorer.title': 'Custom Field Explorer';
     readonly 'templateEditorPage.templateEditorTextArea.saveIconTooltip': 'Save file';
     readonly 'templateEditorPage.templateEditorTextArea.refreshIconTooltip': 'Reload file';
     readonly 'templateEditorPage.templateEditorTextArea.emptyStateParagraph': 'Please select an action on the file menu.';
@@ -890,12 +896,12 @@ export const scaffolderTranslationRef: TranslationRef<
     readonly 'templateEditorToolbar.addToCatalogDialogTitle': 'Publish changes';
     readonly 'templateEditorToolbar.addToCatalogDialogContent.stepsIntroduction': 'Follow the instructions below to create or update a template:';
     readonly 'templateEditorToolbar.addToCatalogDialogContent.stepsListItems': 'Save the template files in a local directory\nCreate a pull request to a new or existing git repository\nIf the template already exists, the changes will be reflected in the software catalog once the pull request gets merged\nBut if you are creating a new template, follow the documentation linked below to register the new template repository in software catalog';
-    readonly 'templateEditorToolbar.addToCatalogDialogActions.documentationUrl': 'https://backstage.io/docs/features/software-templates/adding-templates/';
     readonly 'templateEditorToolbar.addToCatalogDialogActions.documentationButton': 'Go to the documentation';
-    readonly 'templateEditorToolbarFileMenu.button': 'File';
+    readonly 'templateEditorToolbar.addToCatalogDialogActions.documentationUrl': 'https://backstage.io/docs/features/software-templates/adding-templates/';
     readonly 'templateEditorToolbarFileMenu.options.openDirectory': 'Open template directory';
     readonly 'templateEditorToolbarFileMenu.options.createDirectory': 'Create template directory';
     readonly 'templateEditorToolbarFileMenu.options.closeEditor': 'Close template editor';
+    readonly 'templateEditorToolbarFileMenu.button': 'File';
     readonly 'templateEditorToolbarTemplatesMenu.button': 'Templates';
   }
 >;

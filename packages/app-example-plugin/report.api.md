@@ -10,6 +10,7 @@ import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
 import { JSX as JSX_3 } from 'react/jsx-runtime';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/frontend-plugin-api';
@@ -18,8 +19,8 @@ import { RouteRef } from '@backstage/frontend-plugin-api';
 const examplePlugin: OverridableFrontendPlugin<
   {},
   {},
-  {
-    'page:example': OverridableExtensionDefinition<{
+  MakeSortedExtensionsMap<
+    OverridableExtensionDefinition<{
       kind: 'page';
       name: undefined;
       config: {
@@ -27,8 +28,8 @@ const examplePlugin: OverridableFrontendPlugin<
         title: string | undefined;
       };
       configInput: {
-        title?: string | undefined;
         path?: string | undefined;
+        title?: string | undefined;
       };
       output:
         | ExtensionDataRef<string, 'core.routing.path', {}>
@@ -94,8 +95,9 @@ const examplePlugin: OverridableFrontendPlugin<
         routeRef?: RouteRef;
         noHeader?: boolean;
       };
-    }>;
-  }
+    }>,
+    'example'
+  >
 >;
 export default examplePlugin;
 

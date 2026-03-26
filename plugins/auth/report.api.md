@@ -9,6 +9,7 @@ import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { ExtensionInput } from '@backstage/frontend-plugin-api';
 import { IconElement } from '@backstage/frontend-plugin-api';
 import { JSX as JSX_2 } from 'react';
+import { MakeSortedExtensionsMap } from '@backstage/frontend-plugin-api';
 import { OverridableExtensionDefinition } from '@backstage/frontend-plugin-api';
 import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
 import { RouteRef } from '@backstage/frontend-plugin-api';
@@ -19,8 +20,8 @@ const _default: OverridableFrontendPlugin<
     root: RouteRef<undefined>;
   },
   {},
-  {
-    'page:auth': OverridableExtensionDefinition<{
+  MakeSortedExtensionsMap<
+    OverridableExtensionDefinition<{
       kind: 'page';
       name: undefined;
       config: {
@@ -28,8 +29,8 @@ const _default: OverridableFrontendPlugin<
         title: string | undefined;
       };
       configInput: {
-        title?: string | undefined;
         path?: string | undefined;
+        title?: string | undefined;
       };
       output:
         | ExtensionDataRef<string, 'core.routing.path', {}>
@@ -95,8 +96,9 @@ const _default: OverridableFrontendPlugin<
         routeRef?: RouteRef;
         noHeader?: boolean;
       };
-    }>;
-  }
+    }>,
+    'auth'
+  >
 >;
 export default _default;
 

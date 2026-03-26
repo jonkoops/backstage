@@ -42,6 +42,7 @@ export {
   type FrontendPluginInfo,
   type FrontendPluginInfoOptions,
 } from './createFrontendPlugin';
+export type { MakeSortedExtensionsMap } from './MakeSortedExtensionsMap';
 export {
   createFrontendModule,
   type FrontendModule,
@@ -55,6 +56,7 @@ export {
 export {
   type Extension,
   type ExtensionAttachTo,
+  type ResolveExtensionId,
 } from './resolveExtensionDefinition';
 export {
   type ExtensionDataContainer,
